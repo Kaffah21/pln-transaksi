@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TarifController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,5 +26,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::put('/petugas/{user}', [AdminController::class, 'update'])->name('petugas.update');
     Route::delete('/petugas/{user}', [AdminController::class, 'destroy'])->name('petugas.destroy');
 });
+Route::resource('tarif', TarifController::class);
+
 
 require __DIR__.'/auth.php';
