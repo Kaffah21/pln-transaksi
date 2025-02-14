@@ -18,7 +18,7 @@
                     <a href="{{ route('tarif.index') }}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Jenis Pelanggan</a>
                 @endif
 
-                <a href="" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pelanggan</a>
+                <a href="{{route ('pelanggan.index')}}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pelanggan</a>
                 <a href="" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pemakaian</a>
             </div>
 
