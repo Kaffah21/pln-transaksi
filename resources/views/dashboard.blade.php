@@ -1,6 +1,6 @@
 <x-app-layout>
 
-
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -10,8 +10,6 @@
 
                         <!-- Main Content -->
                         <div class="flex-1 p-10">
-                            <h1 class="text-3xl font-bold mb-5">Dashboard</h1>
-
                             <!-- Stats Cards -->
                             <div class="grid grid-cols-4 gap-4 mb-5">
                                 <div class="p-5 bg-white shadow rounded-lg text-center">
@@ -43,7 +41,7 @@
             </div>
         </div>
     </div>
-
+@endsection
     <script>
         const ctx = document.getElementById('usageChart').getContext('2d');
         new Chart(ctx, {

@@ -8,10 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Pelanggan extends Model
 {
     use HasFactory;
-    protected $fillable = ['NoKontrol','Nama','Alamat','Telpon','Jenis_Plg'];
+    protected $primaryKey = 'NoKontrol';
 
+    // Jika tidak menggunakan auto-increment, tambahkan ini
+    public $incrementing = false;
+
+    protected $fillable = [
+        'NoKontrol',
+        'Nama',
+        'Alamat',
+        'Telepon',
+        'Jenis_Plg',
+    ];
     public function tarif()
     {
-        return $this->belongsTo(Tarif::class, 'Jenis_Plg');
+        return $this->belongsTo(Tarif::class, 'Jenis_Plg', 'Jenis_Plg');
     }
 }
