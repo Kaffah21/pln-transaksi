@@ -11,10 +11,15 @@
 
             <!-- Menu Tambahan -->
             <div class="hidden sm:flex sm:items-center ml-auto">
-                <a href="" class="text-gray-700 hover:text-gray-900 font-medium px-4">Petugas</a>
-                <a href="" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pelanggan</a>
-                <a href="{{ route('admin.petugas.index') }}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pengguna</a>
+                <a href="{{ route('dashboard') }}" class="text-lg font-bold text-gray-800"> Dashboard </a>
 
+                @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('admin.petugas.index') }}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Petugas</a>
+                    <a href="{{ route('tarif.index') }}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Jenis Pelanggan</a>
+                @endif
+
+                <a href="{{route ('pelanggan.index')}}" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pelanggan</a>
+                <a href="" class="text-gray-700 hover:text-gray-900 font-medium px-4">Pemakaian</a>
             </div>
 
             <!-- Settings Dropdown di Kanan -->
@@ -23,6 +28,8 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
+                            <span class="text-xs text-gray-400">({{ Auth::user()->role }})</span>
+
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

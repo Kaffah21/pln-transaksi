@@ -12,7 +12,8 @@ class TarifController extends Controller
      */
     public function index()
     {
-        //
+        $tarifs = Tarif::all();
+        return view('tarif.index', compact('tarifs'));
     }
 
     /**
@@ -20,7 +21,7 @@ class TarifController extends Controller
      */
     public function create()
     {
-        //
+        return view('tarif.create');
     }
 
     /**
@@ -28,9 +29,18 @@ class TarifController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'Jenis_Plg' => 'required|unique:tarifs,Jenis_Plg',
+            'BiayaBeban' => 'required|numeric',
+            'TarifKWH' => 'required|numeric',
+        ]);
+        $validatedData = $request->only(['Jenis_Plg', 'BiayaBeban', 'TarifKWH']);
 
+
+        Tarif::create($request->all());
+
+        return redirect()->route('tarif.index')->with('success', 'Jenis Pelanggan berhasil ditambahkan.');
+    }
     /**
      * Display the specified resource.
      */
@@ -44,7 +54,7 @@ class TarifController extends Controller
      */
     public function edit(Tarif $tarif)
     {
-        //
+        return view('tarif.edit', compact('tarif'));
     }
 
     /**
@@ -52,7 +62,15 @@ class TarifController extends Controller
      */
     public function update(Request $request, Tarif $tarif)
     {
-        //
+        $request->validate([
+            'Jenis_Plg' => 'required|unique:tarifs,Jenis_Plg,' . $tarif->id,
+            'BiayaBeban' => 'required|numeric',
+            'TarifKWH' => 'required|numeric',
+        ]);
+
+        $tarif->update($request->all());
+
+        return redirect()->route('tarif.index')->with('success', 'Jenis Pelanggan berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +78,7 @@ class TarifController extends Controller
      */
     public function destroy(Tarif $tarif)
     {
-        //
+        $tarif->delete();
+        return redirect()->route('tarif.index')->with('success','Jenis Pelanggan Berhasil Dihapus');
     }
 }
