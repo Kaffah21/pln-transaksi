@@ -9,4 +9,9 @@ class Tarif extends Model
 {
     use HasFactory;
     protected $fillable = ['Jenis_Plg','BiayaBeban','TarifKWH'];
+
+    public function pelanggans()
+{
+    return $this->hasMany(Pelanggan::class, 'Jenis_Plg', 'Jenis_Plg');
+}
 }
