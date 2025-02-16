@@ -14,7 +14,7 @@
                             <div class="grid grid-cols-4 gap-4 mb-5">
                                 <div class="p-5 bg-white shadow rounded-lg text-center">
                                     <h2 class="text-xl font-bold">Total Pelanggan</h2>
-                                    <p class="text-2xl text-blue-600">250</p>
+                                    <p class="text-2xl text-blue-600">{{ $totalPelanggans }}</p>
                                 </div>
                                 <div class="p-5 bg-white shadow rounded-lg text-center">
                                     <h2 class="text-xl font-bold">Total Pemakaian</h2>

@@ -2,27 +2,58 @@
     <!-- Sidebar -->
     <div :class="{'block': open, 'hidden': !open}" class="fixed inset-0 z-10 bg-gray-800 bg-opacity-50 sm:hidden" @click="open = false"></div>
     <div :class="{'translate-x-0': open, '-translate-x-full': !open}" class="transition-transform transform fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 z-20 sm:relative sm:translate-x-0">
-        <div class="flex items-center justify-between p-4">
-            <a href="{{ route('dashboard') }}" class="text-lg font-bold text-gray-800">
+        <div class="flex items-center justify-between p-4 border-b border-gray-200">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
                 <img src="{{ asset('asset/pln.png') }}" alt="PLN Logo" class="h-16">
+                <span class="text-xl font-bold text-gray-800">PLN System</span>
             </a>
-            <button @click="open = false" class="text-gray-600 hover:text-gray-900 sm:hidden">
+            <button @click="open = false" class="text-gray-600 hover:text-red-500 transition duration-300 sm:hidden">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
-        <div class="space-y-4 px-4 py-6">
-            <a href="{{ route('dashboard') }}" class="block text-gray-800 font-semibold py-2">Dashboard</a>
-
+        
+        <div class="space-y-2 px-4 py-4">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 9h18M3 15h18M3 21h18"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+        
             @if(Auth::user()->role === 'admin')
-                <a href="{{ route('admin.petugas.index') }}" class="block text-gray-800 font-semibold py-2">Petugas</a>
-                <a href="{{ route('tarif.index') }}" class="block text-gray-800 font-semibold py-2">Jenis Pelanggan</a>
+                <a href="{{ route('admin.petugas.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-8 0v2h3M9 20H4v-2a4 4 0 018 0v2H9zM12 11a4 4 0 100-8 4 4 0 000 8zM20 8a4 4 0 11-8 0"></path>
+                    </svg>
+                    <span>Petugas</span>
+                </a>
+        
+                <a href="{{ route('tarif.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span>Jenis Pelanggan</span>
+                </a>
             @endif
-
-            <a href="{{ route('pelanggan.index') }}" class="block text-gray-800 font-semibold py-2">Pelanggan</a>
-            <a href="#" class="block text-gray-800 font-semibold py-2">Pemakaian</a>
+        
+            <a href="{{ route('pelanggan.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
+                </svg>
+                <span>Pelanggan</span>
+            </a>
+        
+            <a href="{{ route('pemakaian.index')}}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M5 8h14"></path>
+                </svg>
+                <span>Pemakaian</span>
+            </a>
         </div>
+        
+        
     </div>
 
     <!-- Main Content -->
@@ -44,20 +75,15 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->name }}</div>
-                                    <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500 text-white text-sm font-semibold">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                     </div>
                                 </button>
                             </x-slot>
 
                             <x-slot name="content">
-
                                 <div class="px-4 py-2 text-sm text-gray-500">
                                     <strong>Role:</strong> {{ Auth::user()->role }}
-
                                 </div>
                                 <x-dropdown-link :href="route('profile.edit')">
                                     {{ __('Profile') }}
