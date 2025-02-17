@@ -16,72 +16,69 @@
                             <div class="bg-green-100 text-green-800 p-4 rounded-md mb-4">{{ session('success') }}</div>
                         @endif
 
-                        <table class="table-auto w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        No</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Jenis Pelanggan</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Biaya Beban (Rp)</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tarif per KWh (Rp)</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($tarifs as $index => $tarif)
+                        @if ($tarifs->isEmpty())
+                            <div class="text-center text-gray-500 mt-4">
+                                <img src="{{ asset('asset/data-kosong.jpg') }}" alt="Data Kosong"
+                                    class="mx-auto mt-2 w-64 h-auto">
+                            </div>
+                        @else
+                            <table class="table-auto w-full divide-y divide-gray-200">
+                                <thead>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $index + 1 }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $tarif->Jenis_Plg }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
-                                            {{ number_format($tarif->BiayaBeban, 2, ',', '.') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
-                                            {{ number_format($tarif->TarifKWH, 2, ',', '.') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                                            <div class="relative inline-block text-left">
-                                                <button type="button"
-                                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    data-dropdown-id="dropdown-{{ $tarif->id }}">
-                                                    <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 -->
-                                                </button>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Pelanggan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Biaya Beban (Rp)</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarif per KWh (Rp)</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($tarifs as $index => $tarif)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $index + 1 }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $tarif->Jenis_Plg }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
+                                                {{ number_format($tarif->BiayaBeban, 2, ',', '.') }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
+                                                {{ number_format($tarif->TarifKWH, 2, ',', '.') }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                                <div class="relative inline-block text-left">
+                                                    <button type="button"
+                                                        class="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                        data-dropdown-id="dropdown-{{ $tarif->id }}">
+                                                        <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 -->
+                                                    </button>
 
-                                                <div id="dropdown-{{ $tarif->id }}"
-                                                    class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                    <div class="py-1" role="menu" aria-orientation="vertical"
-                                                        aria-labelledby="options-menu">
-                                                        <a href="{{ route('tarif.edit', $tarif) }}"
-                                                            class="text-gray-700 block px-4 py-2 text-sm"
-                                                            role="menuitem">Edit</a>
-                                                        <form action="{{ route('tarif.destroy', $tarif) }}" method="POST"
-                                                            class="inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
+                                                    <div id="dropdown-{{ $tarif->id }}"
+                                                        class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                        <div class="py-1" role="menu" aria-orientation="vertical"
+                                                            aria-labelledby="options-menu">
+                                                            <a href="{{ route('tarif.edit', $tarif) }}"
                                                                 class="text-gray-700 block px-4 py-2 text-sm"
-                                                                role="menuitem"
-                                                                onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                                                        </form>
+                                                                role="menuitem">Edit</a>
+                                                            <form action="{{ route('tarif.destroy', $tarif) }}" method="POST"
+                                                                class="inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="text-gray-700 block px-4 py-2 text-sm"
+                                                                    role="menuitem"
+                                                                    onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                        {{-- pagination --}}
-                        {{-- <div>
-                        {{ $tarifs->links() }}
-                    </div> --}}
+                            {{-- pagination --}}
+                            <div class="mt-4">
+                                {{ $tarifs->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
