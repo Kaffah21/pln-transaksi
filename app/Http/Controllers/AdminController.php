@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::where('role','petugas')->get();
         return view('admin.index', compact('users'));
     }
 
@@ -27,7 +27,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'petugas', // role petugas
+            'role' => 'petugas', 
         ]);
 
         return redirect()->route('admin.petugas.index')->with('success', 'Petugas berhasil ditambahkan!');
