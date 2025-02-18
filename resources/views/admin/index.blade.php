@@ -52,7 +52,7 @@
                                                 </button>
 
                                                 <div id="dropdown-{{ $user->id }}"
-                                                    class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                    class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" style="z-index: 50">
                                                     <div class="py-1" role="menu" aria-orientation="vertical"
                                                         aria-labelledby="options-menu">
                                                         <a href="{{ route('admin.petugas.edit', $user) }}"

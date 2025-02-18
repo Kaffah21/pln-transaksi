@@ -46,7 +46,7 @@
                                                     <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 -->
                                                 </button>
 
-                                                <div id="dropdown-{{ $pelanggan->NoKontrol }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                <div id="dropdown-{{ $pelanggan->NoKontrol }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" style="z-index: 50">
                                                     <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                         <a href="{{ route('pelanggan.edit', $pelanggan->NoKontrol) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">Edit</a>
                                                         <form action="{{ route('pelanggan.destroy', $pelanggan->NoKontrol) }}" method="POST" class="inline">
