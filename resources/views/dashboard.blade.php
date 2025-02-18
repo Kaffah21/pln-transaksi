@@ -30,11 +30,7 @@
                                 </div>
                             </div>
 
-                            <!-- Chart -->
-                            <div class="bg-white p-5 shadow rounded-lg">
-                                <h2 class="text-xl font-bold mb-3">Grafik Pemakaian Listrik</h2>
-                                <canvas id="usageChart"></canvas>
-                            </div>
+
                         </div>
                     </div>
                 </div>

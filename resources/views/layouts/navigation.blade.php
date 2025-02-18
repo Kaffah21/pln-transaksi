@@ -5,7 +5,7 @@
         <div class="flex items-center justify-between p-4 border-b border-gray-200">
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
                 <img src="{{ asset('asset/pln.png') }}" alt="PLN Logo" class="h-16">
-                <span class="text-xl font-bold text-gray-800">PLN System</span>
+                {{-- <span class="text-xl font-bold " style="color: #07acea">PLN Admin</span> --}}
             </a>
             <button @click="open = false" class="text-gray-600 hover:text-red-500 transition duration-300 sm:hidden">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
                 </a>
 
                 <a href="{{ route('tarif.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
-                    <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                     <span>Jenis Pelanggan</span>

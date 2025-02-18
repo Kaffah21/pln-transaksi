@@ -21,7 +21,7 @@ class PemakaianController extends Controller
         $query->where('pemakaians.NoKontrol', trim($request->no_kontrol));
     }
 
-    $pemakaians = $query->paginate(10);
+    $pemakaians = $query->paginate(5);
 
     return view('pemakaian.index', compact('pemakaians'));
 }
