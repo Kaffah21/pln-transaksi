@@ -40,17 +40,18 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
                                                 {{ number_format($tarif->BiayaBeban, 2, ',', '.') }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                                                {{ number_format($tarif->TarifKWH,   ) }}VA</td>
+                                                {{ number_format($tarif->TarifKWH) }} VA</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">
                                                 <div class="relative inline-block text-left">
                                                     <button type="button"
-                                                        class="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                        class="inline-flex justify-center w-full rounded-md bg-white px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
                                                         data-dropdown-id="dropdown-{{ $tarif->id }}">
-                                                        <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 -->
+                                                        <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 tanpa border -->
                                                     </button>
 
                                                     <div id="dropdown-{{ $tarif->id }}"
-                                                        class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none "style="z-index:50 ">
+                                                        class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                                        style="z-index:50;">
                                                         <div class="py-1" role="menu" aria-orientation="vertical"
                                                             aria-labelledby="options-menu">
                                                             <a href="{{ route('tarif.edit', $tarif) }}"
@@ -92,12 +93,12 @@
             const dropdownButtons = document.querySelectorAll('[data-dropdown-id]');
 
             dropdownButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation();
                     const targetDropdownId = this.getAttribute('data-dropdown-id');
                     const targetDropdown = document.getElementById(targetDropdownId);
 
-                    const allDropdowns = document.querySelectorAll('[id^="dropdown-"]');
-                    allDropdowns.forEach(dropdown => {
+                    document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
                         if (dropdown.id !== targetDropdownId) {
                             dropdown.classList.add('hidden');
                         }
@@ -106,6 +107,13 @@
                     targetDropdown.classList.toggle('hidden');
                 });
             });
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+                    dropdown.classList.add('hidden');
+                });
+            });
         });
     </script>
+
 </x-app-layout>

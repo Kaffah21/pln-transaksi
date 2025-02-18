@@ -42,11 +42,11 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $pelanggan->tarif->Jenis_Plg ?? '-' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">
                                             <div class="relative inline-block text-left">
-                                                <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-dropdown-id="dropdown-{{ $pelanggan->NoKontrol }}">
+                                                <button type="button" class="p-2 bg-white border-none rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none" data-dropdown-id="dropdown-{{ $pelanggan->NoKontrol }}">
                                                     <i class="fas fa-ellipsis-v"></i> <!-- Icon titik 3 -->
                                                 </button>
 
-                                                <div id="dropdown-{{ $pelanggan->NoKontrol }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" style="z-index: 50">
+                                                <div id="dropdown-{{ $pelanggan->NoKontrol }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                                                     <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                         <a href="{{ route('pelanggan.edit', $pelanggan->NoKontrol) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">Edit</a>
                                                         <form action="{{ route('pelanggan.destroy', $pelanggan->NoKontrol) }}" method="POST" class="inline">
@@ -69,7 +69,6 @@
                         </div>
                     @endif
                 </div>
-
             </div>
         </div>
     </div>
@@ -77,24 +76,41 @@
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script>
        document.addEventListener("DOMContentLoaded", function() {
             const dropdownButtons = document.querySelectorAll('[data-dropdown-id]');
+            let activeDropdown = null;
 
             dropdownButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Mencegah event dari bubbling ke document
+
                     const targetDropdownId = this.getAttribute('data-dropdown-id');
                     const targetDropdown = document.getElementById(targetDropdownId);
 
-                    const allDropdowns = document.querySelectorAll('[id^="dropdown-"]');
-                    allDropdowns.forEach(dropdown => {
-                        if (dropdown.id !== targetDropdownId) {
+                    // Tutup semua dropdown sebelum membuka yang baru
+                    document.querySelectorAll('[id^="dropdown-"]').forEach(dropdown => {
+                        if (dropdown !== targetDropdown) {
                             dropdown.classList.add('hidden');
                         }
                     });
 
-                    targetDropdown.classList.toggle('hidden');
+                    // Toggle visibility dropdown yang diklik
+                    const isHidden = targetDropdown.classList.contains('hidden');
+                    targetDropdown.classList.toggle('hidden', !isHidden);
+
+                    // Simpan referensi dropdown aktif
+                    activeDropdown = isHidden ? targetDropdown : null;
                 });
+            });
+
+            // Menutup dropdown saat klik di luar
+            document.addEventListener('click', function(event) {
+                if (activeDropdown && !event.target.closest('[data-dropdown-id]') && !event.target.closest('[id^="dropdown-"]')) {
+                    activeDropdown.classList.add('hidden');
+                    activeDropdown = null;
+                }
             });
         });
     </script>

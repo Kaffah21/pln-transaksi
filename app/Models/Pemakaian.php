@@ -16,6 +16,7 @@ class Pemakaian extends Model
         'MeterAkhir',
         'JumlahPakai',
         'BiayaBebanPemakai',
-        'BiayaPemakaian'
+        'BiayaPemakaian',
+        'Status'
     ];
 }
