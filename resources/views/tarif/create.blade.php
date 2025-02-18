@@ -33,7 +33,7 @@
 
                             <div class="mb-5">
                                 <label for="TarifKWH" class="block text-gray-700 font-semibold mb-2">Tarif per KWH
-                                    (Rp)</label>
+                                    </label>
                                 <input type="number" step="0.01" id="TarifKWH" name="TarifKWH"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-md @error('TarifKWH') border-red-500 @enderror"
                                     required min="0">

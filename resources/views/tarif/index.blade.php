@@ -39,8 +39,8 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $tarif->Jenis_Plg }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
                                                 {{ number_format($tarif->BiayaBeban, 2, ',', '.') }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">Rp
-                                                {{ number_format($tarif->TarifKWH, 2, ',', '.') }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                                {{ number_format($tarif->TarifKWH,   ) }}VA</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-700">
                                                 <div class="relative inline-block text-left">
                                                     <button type="button"

@@ -1,52 +1,90 @@
 <x-app-layout>
     @section('content')
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                    <div class="bg-gray-100 p-4">
-                        <h3 class="text-xl font-semibold">Tambah Tarif Pelanggan</h3>
+            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-gray-100 to-gray-200 p-5">
+                        <h3 class="text-2xl font-semibold text-gray-800">Tambah Pemakaian Listrik</h3>
                     </div>
                     <div class="p-6">
-                        <form method="POST" action="{{ route('tarif.store') }}">
+                        @if ($errors->any())
+                            <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-5">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('pemakaian.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-5">
-                                <label for="Jenis_Plg" class="block text-gray-700 font-semibold mb-2">Jenis Pelanggan</label>
-                                <input type="text" id="Jenis_Plg" name="Jenis_Plg"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('Jenis_Plg') border-red-500 @enderror"
-                                    required>
-                                @error('Jenis_Plg')
-                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                                @enderror
+                                <label for="NoKontrol" class="block text-gray-700 font-medium mb-2">Pelanggan</label>
+                                <select name="NoKontrol"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    @foreach($pelanggans as $pelanggan)
+                                        <option value="{{ $pelanggan->NoKontrol }}">{{ $pelanggan->Nama }} - {{ $pelanggan->NoKontrol }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-5">
-                                <label for="BiayaBeban" class="block text-gray-700 font-semibold mb-2">Biaya Beban
-                                    (Rp)</label>
-                                <input type="number" step="0.01" id="BiayaBeban" name="BiayaBeban" min="0"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('BiayaBeban') border-red-500 @enderror"
-                                    required>
-                                @error('BiayaBeban')
-                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                                @enderror
+                                <label for="Tahun" class="block text-gray-700 font-medium mb-2">Tahun</label>
+                                <select name="Tahun"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    @for ($year = date('Y'); $year >= 2000; $year--)
+                                        <option value="{{ $year }}" {{ old('Tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                    @endfor
+                                </select>
                             </div>
 
                             <div class="mb-5">
-                                <label for="TarifKWH" class="block text-gray-700 font-semibold mb-2">Tarif per KWH
-                                    (Rp)</label>
-                                <input type="number" step="0.01" id="TarifKWH" name="TarifKWH"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('TarifKWH') border-red-500 @enderror"
-                                    required min="0">
-                                @error('TarifKWH')
-                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                                @enderror
+                                <label for="Bulan" class="block text-gray-700 font-medium mb-2">Bulan</label>
+                                <select name="Bulan"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    @for ($month = 1; $month <= 12; $month++)
+                                        <option value="{{ $month }}" {{ old('Bulan') == $month ? 'selected' : '' }}>
+                                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                                        </option>
+                                    @endfor
+                                </select>
                             </div>
 
-                            <div class="flex justify-between mt-5">
-                                <a href="{{ route('tarif.index') }}"
-                                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">Kembali</a>
+                            <div class="mb-5">
+                                <label for="MeterAwal" class="block text-gray-700 font-medium mb-2">Meter Awal</label>
+                                <input type="number" name="MeterAwal" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="MeterAkhir" class="block text-gray-700 font-medium mb-2">Meter Akhir</label>
+                                <input type="number" name="MeterAkhir" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="BiayaBebanPemakai" class="block text-gray-700 font-medium mb-2">Biaya Beban</label>
+                                <input type="number" step="0.01" name="BiayaBebanPemakai" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="BiayaPemakaian" class="block text-gray-700 font-medium mb-2">Biaya Pemakaian</label>
+                                <input type="number" step="0.01" name="BiayaPemakaian" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+
+                            <div class="flex justify-between mt-6">
+                                <a href="{{ route('pemakaian.index') }}"
+                                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105">
+                                    Batal
+                                </a>
                                 <button type="submit"
-                                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none">Simpan</button>
+                                    class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105">
+                                    Simpan
+                                </button>
                             </div>
                         </form>
                     </div>

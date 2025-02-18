@@ -13,13 +13,13 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggans = Pelanggan::with('tarif')->paginate(5); 
+        $pelanggans = Pelanggan::with('tarif')->paginate(5);
         return view('pelanggan.index', compact('pelanggans'));
     }
 
     public function create()
     {
-        $tarifs = Tarif::all(); 
+        $tarifs = Tarif::all();
         return view('pelanggan.create', compact('tarifs'));
     }
 
@@ -30,7 +30,7 @@ class PelangganController extends Controller
             'Nama' => 'required|string',
             'Alamat' => 'required|string',
             'Telepon' => 'required|string',
-            'Jenis_Plg' => 'required|exists:tarifs,Jenis_Plg', 
+            'Jenis_Plg' => 'required|exists:tarifs,Jenis_Plg',
         ]);
 
         Pelanggan::create($request->all());
@@ -41,7 +41,7 @@ class PelangganController extends Controller
     public function edit($NoKontrol)
     {
         $pelanggan = Pelanggan::findOrFail($NoKontrol);
-        $tarifs = Tarif::all();  
+        $tarifs = Tarif::all();
         return view('pelanggan.edit', compact('pelanggan', 'tarifs'));
     }
 

@@ -13,7 +13,7 @@
                             <!-- Stats Cards -->
                             <div class="grid grid-cols-4 gap-4 mb-5">
                                 <div class="p-5 bg-white shadow rounded-lg text-center">
-                                    <h2 class="text-xl font-bold">Total Pelanggan</h2>
+                                    <h2 class="text-xl font-bold">Pelanggan</h2>
                                     <p class="text-2xl text-blue-600">{{ $totalPelanggans }}</p>
                                 </div>
                                 <div class="p-5 bg-white shadow rounded-lg text-center">
@@ -30,11 +30,7 @@
                                 </div>
                             </div>
 
-                            <!-- Chart -->
-                            <div class="bg-white p-5 shadow rounded-lg">
-                                <h2 class="text-xl font-bold mb-3">Grafik Pemakaian Listrik</h2>
-                                <canvas id="usageChart"></canvas>
-                            </div>
+
                         </div>
                     </div>
                 </div>

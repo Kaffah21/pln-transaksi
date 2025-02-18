@@ -5,7 +5,7 @@
         <div class="flex items-center justify-between p-4 border-b border-gray-200">
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
                 <img src="{{ asset('asset/pln.png') }}" alt="PLN Logo" class="h-16">
-                <span class="text-xl font-bold text-gray-800">PLN System</span>
+                {{-- <span class="text-xl font-bold " style="color: #07acea">PLN Admin</span> --}}
             </a>
             <button @click="open = false" class="text-gray-600 hover:text-red-500 transition duration-300 sm:hidden">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -13,7 +13,7 @@
                 </svg>
             </button>
         </div>
-        
+
         <div class="space-y-2 px-4 py-4">
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
                 <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,7 +21,7 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
-        
+
             @if(Auth::user()->role === 'admin')
                 <a href="{{ route('admin.petugas.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
                     <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,22 +29,22 @@
                     </svg>
                     <span>Petugas</span>
                 </a>
-        
+
                 <a href="{{ route('tarif.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
-                    <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                     <span>Jenis Pelanggan</span>
                 </a>
             @endif
-        
+
             <a href="{{ route('pelanggan.index') }}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
                 <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                 </svg>
                 <span>Pelanggan</span>
             </a>
-        
+
             <a href="{{ route('pemakaian.index')}}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
                 <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M5 8h14"></path>
@@ -52,8 +52,8 @@
                 <span>Pemakaian</span>
             </a>
         </div>
-        
-        
+
+
     </div>
 
     <!-- Main Content -->
