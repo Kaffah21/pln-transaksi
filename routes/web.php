@@ -31,6 +31,14 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 });
 Route::resource('tarif', TarifController::class);
 Route::resource('pelanggan', PelangganController::class);
-Route::resource('pemakaian', PemakaianController::class)->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/pemakaian', [PemakaianController::class, 'index'])->name('pemakaian.index');
+    Route::get('/pemakaian/create', [PemakaianController::class, 'create'])->name('pemakaian.create');
+    Route::post('/pemakaian', [PemakaianController::class, 'store'])->name('pemakaian.store');
+    Route::get('/pemakaian/{id}/edit', [PemakaianController::class, 'edit'])->name('pemakaian.edit');
+    Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.update');
+    Route::delete('/pemakaian/{id}', [PemakaianController::class, 'destroy'])->name('pemakaian.destroy');
+    Route::patch('/pemakaian/{id}/status', [PemakaianController::class, 'updateStatus'])->name('pemakaian.updateStatus');
+});
 
 require __DIR__.'/auth.php';

@@ -22,7 +22,7 @@
 
                             <div class="mb-5">
                                 <label for="NoKontrol" class="block text-gray-700 font-medium mb-2">Pelanggan</label>
-                                <select name="NoKontrol"
+                                <select name="NoKontrol" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     @foreach($pelanggans as $pelanggan)
                                         <option value="{{ $pelanggan->NoKontrol }}">{{ $pelanggan->Nama }} - {{ $pelanggan->NoKontrol }}</option>
@@ -32,7 +32,7 @@
 
                             <div class="mb-5">
                                 <label for="Tahun" class="block text-gray-700 font-medium mb-2">Tahun</label>
-                                <select name="Tahun"
+                                <select name="Tahun" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         <option value="{{ $year }}" {{ old('Tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
@@ -42,7 +42,7 @@
 
                             <div class="mb-5">
                                 <label for="Bulan" class="block text-gray-700 font-medium mb-2">Bulan</label>
-                                <select name="Bulan"
+                                <select name="Bulan" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     @for ($month = 1; $month <= 12; $month++)
                                         <option value="{{ $month }}" {{ old('Bulan') == $month ? 'selected' : '' }}>
@@ -54,14 +54,21 @@
 
                             <div class="mb-5">
                                 <label for="MeterAwal" class="block text-gray-700 font-medium mb-2">Meter Awal</label>
-                                <input type="number" name="MeterAwal" required
+                                <input type="number" name="MeterAwal" id="MeterAwal" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             </div>
 
                             <div class="mb-5">
                                 <label for="MeterAkhir" class="block text-gray-700 font-medium mb-2">Meter Akhir</label>
-                                <input type="number" name="MeterAkhir" required
+                                <input type="number" name="MeterAkhir" id="MeterAkhir" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            </div>
+
+                            <!-- Jumlah Pakai (Hasil MeterAkhir - MeterAwal) -->
+                            <div class="mb-5">
+                                <label for="JumlahPakai" class="block text-gray-700 font-medium mb-2">Jumlah Pakai</label>
+                                <input type="number" name="JumlahPakai" id="JumlahPakai" readonly
+                                    class="w-full px-4 py-2 border border-gray-300 bg-gray-100 rounded-lg shadow-sm">
                             </div>
 
                             <div class="mb-5">
@@ -91,5 +98,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- Script untuk Menghitung Jumlah Pakai -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const meterAwal = document.getElementById('MeterAwal');
+                const meterAkhir = document.getElementById('MeterAkhir');
+                const jumlahPakai = document.getElementById('JumlahPakai');
+
+                function hitungJumlahPakai() {
+                    const awal = parseFloat(meterAwal.value) || 0;
+                    const akhir = parseFloat(meterAkhir.value) || 0;
+                    const hasil = akhir - awal;
+                    jumlahPakai.value = hasil > 0 ? hasil : 0; // Pastikan tidak negatif
+                }
+
+                meterAwal.addEventListener('input', hitungJumlahPakai);
+                meterAkhir.addEventListener('input', hitungJumlahPakai);
+            });
+        </script>
     @endsection
 </x-app-layout>
