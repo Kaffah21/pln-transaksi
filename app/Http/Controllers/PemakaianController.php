@@ -89,14 +89,16 @@ class PemakaianController extends Controller
         return redirect()->route('pemakaian.index')->with('success', 'Pemakaian berhasil diperbarui');
     }
 
-    public function updateStatus(Request $request,$id)
-    {
-        $pemakaian = Pemakaian::findOrFail($id);
-        $pemakaian->status = $request->status;
-        $pemakaian->save();
+    public function updateStatus(Pemakaian $pemakaian)
+{
+    // Toggle the status between 'Lunas' and 'Belum Lunas'
+    $pemakaian->status = $pemakaian->status === 'Lunas' ? 'Belum Lunas' : 'Lunas';
+    $pemakaian->save();
 
-        return response()->json(['success' => true]);
-    }
+    return redirect()->route('pemakaian.index')->with('status', 'Status updated successfully');
+}
+
+
 
     /**
      * Remove the specified resource from storage.

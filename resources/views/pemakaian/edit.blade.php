@@ -37,7 +37,7 @@
                                 <label for="Tahun" class="block text-gray-700 font-medium mb-2">Tahun</label>
                                 <select name="Tahun" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                    @for ($year = date('Y'); $year >= 2000; $year--)
+                                    @for ($year = date('Y'); $year >= 2020; $year--)
                                         <option value="{{ $year }}" {{ $pemakaian->Tahun == $year ? 'selected' : '' }}>{{ $year }}</option>
                                     @endfor
                                 </select>
