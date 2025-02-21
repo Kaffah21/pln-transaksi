@@ -19,7 +19,7 @@
         }
 
         .content {
-            flex: 1; /* Konten akan mengisi ruang yang tersisa */
+            flex: 1; 
         }
     </style>
 </head>
@@ -44,7 +44,7 @@
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto text-center text-sm">
-                &copy; 2025 Data Pemakaian. All rights reserved.
+                &copy; <script>document.write(new Date().getFullYear())</script> Data Pemakaian. All rights reserved.
             </div>
         </footer>
     </div>

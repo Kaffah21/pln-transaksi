@@ -20,6 +20,11 @@ class Pelanggan extends Model
         'Telepon',
         'Jenis_Plg',
     ];
+
+    public function generateNoKontrol()
+    {
+        
+    }
     public function tarif()
     {
         return $this->belongsTo(Tarif::class, 'Jenis_Plg', 'Jenis_Plg');

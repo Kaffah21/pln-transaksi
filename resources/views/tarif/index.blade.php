@@ -62,7 +62,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit"
-                                                                    class="text-gray-700 block px-4 py-2 text-sm"
+                                                                    class="text-red-500 block px-4 py-2 text-sm"
                                                                     role="menuitem"
                                                                     onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                                                             </form>

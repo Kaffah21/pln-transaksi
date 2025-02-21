@@ -52,7 +52,7 @@
                                                         <form action="{{ route('pelanggan.destroy', $pelanggan->NoKontrol) }}" method="POST" class="inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                                            <button type="submit" class="text-red-500 block px-4 py-2 text-sm" role="menuitem" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>
