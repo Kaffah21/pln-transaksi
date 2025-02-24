@@ -51,6 +51,13 @@
                 </svg>
                 <span>Pemakaian</span>
             </a>
+
+            <a href="{{ route('laporan.list')}}" class="flex items-center space-x-3 text-gray-800 font-semibold py-3 px-4 rounded-lg hover:bg-gray-200 transition duration-300">
+                <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M5 8h14"></path>
+                </svg>
+                <span>Laporan</span>
+            </a>
         </div>
 
 
