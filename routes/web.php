@@ -6,6 +6,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemakaianController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 Route::get('/pemakaian/cari', [FrontendController::class, 'cari'])->name('pemakaian.cari');
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.list');
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@
         }
 
         .content {
-            flex: 1; 
+            flex: 1;
         }
     </style>
 </head>
@@ -27,12 +27,10 @@
     <!-- Wrapper utama -->
     <div class="content-wrapper">
         <!-- Header -->
-        <header class="bg-blue-600 text-white py-4">
+        <header class="bg-blue-500 text-white py-4">
             <div class="container mx-auto flex justify-between items-center">
                 <div class="text-lg font-semibold">Data Pemakaian</div>
-                {{-- <div class="text-sm">
-                    Halo, <span class="font-bold">{{ $userName }}</span>!
-                </div> --}}
+               
             </div>
         </header>
 
