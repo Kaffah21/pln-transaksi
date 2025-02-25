@@ -27,7 +27,7 @@
 
                             <!-- Tombol Tambah -->
                             <a href="{{ route('pemakaian.create') }}"
-                                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                                class=" text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center" style="background: #07acea">
                                 <i class="fas fa-plus fs-2 mr-2"></i> Tambah Pemakaian
                             </a>
                         </div>

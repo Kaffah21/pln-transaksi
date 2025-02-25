@@ -27,10 +27,10 @@
     <!-- Wrapper utama -->
     <div class="content-wrapper">
         <!-- Header -->
-        <header class="bg-blue-500 text-white py-4">
+        <header class=" text-white py-4" style="background: #07acea">
             <div class="container mx-auto flex justify-between items-center">
                 <div class="text-lg font-semibold">Data Pemakaian</div>
-               
+
             </div>
         </header>
 
