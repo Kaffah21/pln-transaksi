@@ -6,7 +6,7 @@
                     <div class="bg-gray-100 p-4 flex justify-between items-center">
                         <h1 class="text-3xl font-bold">Daftar Petugas Loket</h1>
                         <a href="{{ route('admin.petugas.create') }}"
-                            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                            class=" text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center" style="background: #07acea">
                             <i class="fas fa-plus fs-2 mr-2"></i> Tambah Petugas
                         </a>
                     </div>

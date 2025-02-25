@@ -30,7 +30,7 @@
                     </select>
 
                     <!-- Tombol Cari -->
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md">Cari</button>
+                    <button type="submit" class="px-6 py-2  text-white rounded-md" style="background: #07acea">Cari</button>
                 </div>
             </form>
         </div>
