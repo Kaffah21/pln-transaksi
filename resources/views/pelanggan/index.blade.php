@@ -5,7 +5,7 @@
             <div class="bg-white overflow-hidden shadow-md rounded-lg">
                 <div class="bg-gray-100 p-4 flex justify-between items-center">
                     <h1 class="text-3xl font-bold">Daftar Pelanggan</h1>
-                    <a href="{{ route('pelanggan.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                    <a href="{{ route('pelanggan.create') }}" class="text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center" style="background: #07acea">
                         <i class="fas fa-plus fs-2 mr-2"></i> Tambah Pelanggan
                     </a>
                 </div>

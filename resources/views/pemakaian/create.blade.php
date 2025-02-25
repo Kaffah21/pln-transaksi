@@ -7,25 +7,20 @@
                         <h3 class="text-2xl font-semibold text-gray-800">Tambah Pemakaian Listrik</h3>
                     </div>
                     <div class="p-6">
-                        @if ($errors->any())
-                            <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-5">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
 
                         <form action="{{ route('pemakaian.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-5">
                                 <label for="NoKontrol" class="block text-gray-700 font-medium mb-2">Pelanggan</label>
-                                <select name="NoKontrol" required
+                                <select name="NoKontrol" id="NoKontrol" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                    @foreach($pelanggans as $pelanggan)
-                                        <option value="{{ $pelanggan->NoKontrol }}">{{ $pelanggan->Nama }} - {{ $pelanggan->NoKontrol }}</option>
+                                    <option value="">Pilih Pelanggan</option>
+                                    @foreach ($pelanggans as $pelanggan)
+                                        <option value="{{ $pelanggan->NoKontrol }}"
+                                            {{ old('NoKontrol') == $pelanggan->NoKontrol ? 'selected' : '' }}>
+                                            {{ $pelanggan->Nama }} - {{ $pelanggan->NoKontrol }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -35,7 +30,8 @@
                                 <select name="Tahun" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     @for ($year = date('Y'); $year >= 2020; $year--)
-                                        <option value="{{ $year }}" {{ old('Tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                        <option value="{{ $year }}" {{ old('Tahun') == $year ? 'selected' : '' }}>
+                                            {{ $year }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -72,13 +68,16 @@
                             </div>
 
                             <div class="mb-5">
-                                <label for="BiayaBebanPemakai" class="block text-gray-700 font-medium mb-2">Biaya Beban</label>
-                                <input type="number" step="0.01" name="BiayaBebanPemakai" required
+                                <label for="BiayaBebanPemakai" class="block text-gray-700 font-medium mb-2">Biaya
+                                    Beban</label>
+                                <input type="number" step="0.01" name="BiayaBebanPemakai" id="BiayaBebanPemakai"
+                                    value="{{ old('NoKontrol') ? $biayaBeban : '' }}" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             </div>
 
                             <div class="mb-5">
-                                <label for="BiayaPemakaian" class="block text-gray-700 font-medium mb-2">Biaya Pemakaian</label>
+                                <label for="BiayaPemakaian" class="block text-gray-700 font-medium mb-2">Biaya
+                                    Pemakaian</label>
                                 <input type="number" step="0.01" name="BiayaPemakaian" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             </div>
@@ -101,10 +100,12 @@
 
         <!-- Script untuk Menghitung Jumlah Pakai -->
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const meterAwal = document.getElementById('MeterAwal');
                 const meterAkhir = document.getElementById('MeterAkhir');
                 const jumlahPakai = document.getElementById('JumlahPakai');
+                const noKontrolSelect = document.getElementById('NoKontrol');
+
 
                 function hitungJumlahPakai() {
                     const awal = parseFloat(meterAwal.value) || 0;
@@ -115,6 +116,10 @@
 
                 meterAwal.addEventListener('input', hitungJumlahPakai);
                 meterAkhir.addEventListener('input', hitungJumlahPakai);
+
+                noKontrolSelect.addEventListener('change', function() {
+                    this.form.submit(); 
+                });
             });
         </script>
     @endsection

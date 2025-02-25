@@ -20,7 +20,8 @@
                                             d="M15 15l5 5m-5-5a7 7 0 1 0-10 0 7 7 0 0 0 10 0z" />
                                     </svg>
                                 </div>
-                                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 flex items-center">
+                                <button type="submit" class="text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center gap-2" style="background: #07acea">
+                                    <i class="fas fa-file-export"></i>
                                     Eksport
                                 </button>
                             </form>
@@ -113,6 +114,7 @@
             </div>
         </div>
     @endsection
+    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const dropdownButtons = document.querySelectorAll('[data-dropdown-id]');
