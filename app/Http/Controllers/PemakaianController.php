@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use App\Models\Pemakaian;
+use App\Models\Tarif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,18 +14,18 @@ class PemakaianController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $query = Pemakaian::join('pelanggans', 'pemakaians.NoKontrol', '=', 'pelanggans.NoKontrol')
-        ->select('pemakaians.*', 'pelanggans.Nama', 'pelanggans.Alamat', 'pelanggans.Telepon');
+    {
+        $query = Pemakaian::join('pelanggans', 'pemakaians.NoKontrol', '=', 'pelanggans.NoKontrol')
+            ->select('pemakaians.*', 'pelanggans.Nama', 'pelanggans.Alamat', 'pelanggans.Telepon');
 
-    if ($request->has('no_kontrol') && !empty($request->no_kontrol)) {
-        $query->where('pemakaians.NoKontrol', trim($request->no_kontrol));
+        if ($request->has('no_kontrol') && !empty($request->no_kontrol)) {
+            $query->where('pemakaians.NoKontrol', trim($request->no_kontrol));
+        }
+
+        $pemakaians = $query->paginate(5);
+
+        return view('pemakaian.index', compact('pemakaians'));
     }
-
-    $pemakaians = $query->paginate(5);
-
-    return view('pemakaian.index', compact('pemakaians'));
-}
 
 
     /**
@@ -33,8 +34,24 @@ class PemakaianController extends Controller
     public function create()
     {
         $pelanggans = Pelanggan::all();
-        return view('pemakaian.create', compact('pelanggans'));
+
+        $biayaBeban = null;
+        if (old('NoKontrol')) {
+            $pelanggan = Pelanggan::where('NoKontrol', old('NoKontrol'))->first();
+
+            if ($pelanggan) {
+                $tarif = Tarif::where('Jenis_Plg', $pelanggan->Jenis_Plg)->first();
+                if ($tarif) {
+                    $biayaBeban = $tarif->BiayaBeban;
+                }
+            }
+        }
+
+        return view('pemakaian.create', compact('pelanggans', 'biayaBeban'));
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -90,14 +107,33 @@ class PemakaianController extends Controller
     }
 
     public function updateStatus(Pemakaian $pemakaian)
-{
-    // Toggle the status between 'Lunas' and 'Belum Lunas'
-    $pemakaian->status = $pemakaian->status === 'Lunas' ? 'Belum Lunas' : 'Lunas';
-    $pemakaian->save();
+    {
+        // Toggle the status between 'Lunas' and 'Belum Lunas'
+        $pemakaian->status = $pemakaian->status === 'Lunas' ? 'Belum Lunas' : 'Lunas';
+        $pemakaian->save();
 
-    return redirect()->route('pemakaian.index')->with('status', 'Status updated successfully');
-}
+        return redirect()->route('pemakaian.index')->with('status', 'Status updated successfully');
+    }
 
+    public function getBiayaBeban($noKontrol)
+    {
+        // Find the customer by NoKontrol
+        $pelanggan = Pelanggan::where('NoKontrol', $noKontrol)->first();
+
+        if ($pelanggan) {
+            $tarif = Tarif::where('Jenis_Plg', $pelanggan->Jenis_Plg)->first();
+
+            if ($tarif) {
+                return response()->json([
+                    'biaya_beban' => $tarif->BiayaBeban
+                ]);
+            } else {
+                return response()->json(['biaya_beban' => 0]);
+            }
+        }
+
+        return response()->json(['biaya_beban' => 0]); // Default if no customer is found
+    }
 
 
     /**

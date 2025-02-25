@@ -23,10 +23,12 @@
 
                             <div class="mb-5">
                                 <label for="NoKontrol" class="block text-gray-700 font-medium mb-2">Pelanggan</label>
-                                <select name="NoKontrol" required
+                                <select name="NoKontrol" id="NoKontrol" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    <option value="">Pilih Pelanggan</option>
                                     @foreach($pelanggans as $pelanggan)
-                                        <option value="{{ $pelanggan->NoKontrol }}" {{ $pemakaian->NoKontrol == $pelanggan->NoKontrol ? 'selected' : '' }}>
+                                        <option value="{{ $pelanggan->NoKontrol }}"
+                                            {{ $pemakaian->NoKontrol == $pelanggan->NoKontrol ? 'selected' : '' }}>
                                             {{ $pelanggan->Nama }} - {{ $pelanggan->NoKontrol }}
                                         </option>
                                     @endforeach
@@ -106,6 +108,7 @@
                 const meterAwal = document.getElementById('MeterAwal');
                 const meterAkhir = document.getElementById('MeterAkhir');
                 const jumlahPakai = document.getElementById('JumlahPakai');
+                const noKontrolSelect = document.getElementById('NoKontrol');
 
                 function hitungJumlahPakai() {
                     const awal = parseFloat(meterAwal.value) || 0;
@@ -116,6 +119,10 @@
 
                 meterAwal.addEventListener('input', hitungJumlahPakai);
                 meterAkhir.addEventListener('input', hitungJumlahPakai);
+
+                noKontrolSelect.addEventListener('change', function() {
+                    this.form.submit();
+                });
             });
         </script>
     @endsection
