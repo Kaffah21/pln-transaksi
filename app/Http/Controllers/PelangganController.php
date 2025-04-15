@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
+use App\Models\Tarif;
 use Illuminate\Http\Request;
 
 class PelangganController extends Controller
@@ -12,62 +13,46 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggans = Pelanggan::all();
+        $pelanggans = Pelanggan::with('tarif')->paginate(5);
         return view('pelanggan.index', compact('pelanggans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('pelanggan.create');
+        $tarifs = Tarif::all();
+        return view('pelanggan.create', compact('tarifs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'NoKontrol' => 'required|unique:pelanggans',
-            'Nama' => 'required',
-            'Alamat' => 'required',
-            'Telepon' => 'required',
+            'NoKontrol' => 'required|string|unique:pelanggans',
+            'Nama' => 'required|string',
+            'Alamat' => 'required|string',
+            'Telepon' => 'required|string',
             'Jenis_Plg' => 'required|exists:tarifs,Jenis_Plg',
         ]);
+
         Pelanggan::create($request->all());
-        return redirect()->route('pelanggan.index')->with('success','Pelanggan Telah Ditambahkan');
+
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pelanggan $pelanggan, $NoKontrol)
+    public function edit($NoKontrol)
     {
-        $pelanggans = Pelanggan::findOrFail($NoKontrol);
-        return view('pelanggan.show', compact('pelanggans'));
+        $pelanggan = Pelanggan::findOrFail($NoKontrol);
+        $tarifs = Tarif::all();
+        return view('pelanggan.edit', compact('pelanggan', 'tarifs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pelanggan $pelanggan, $NoKontrol)
-    {
-        $pelanggans = Pelanggan::findOrFail($NoKontrol);
-        return view('pelanggan.edit', compact('pelanggans'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $NoKontrol)
     {
         $request->validate([
-            'Nama' => 'required',
-            'Alamat' => 'required',
-            'Telepon' => 'required',
-            'Jenis_Plg' => 'required',
+            'NoKontrol' => 'required|string',
+            'Nama' => 'required|string|max:255',
+            'Alamat' => 'required|string',
+            'Telepon' => 'required|string|max:15',
+            'Jenis_Plg' => 'required|string',
         ]);
 
         $pelanggan = Pelanggan::findOrFail($NoKontrol);
@@ -76,12 +61,12 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pelanggan $pelanggan)
+
+    public function destroy($NoKontrol)
     {
+        $pelanggan = Pelanggan::findOrFail($NoKontrol);
         $pelanggan->delete();
-        return redirect()->route('pelanggan.index')->with('success','Jenis Pelanggan Berhasil Dihapus');
+
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil dihapus.');;
     }
 }

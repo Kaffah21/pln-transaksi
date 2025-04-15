@@ -4,15 +4,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\TarifController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PemakaianController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,5 +33,17 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 });
 Route::resource('tarif', TarifController::class);
 Route::resource('pelanggan', PelangganController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/pemakaian', [PemakaianController::class, 'index'])->name('pemakaian.index');
+    Route::get('/pemakaian/create', [PemakaianController::class, 'create'])->name('pemakaian.create');
+    Route::post('/pemakaian', [PemakaianController::class, 'store'])->name('pemakaian.store');
+    Route::get('/pemakaian/{id}/edit', [PemakaianController::class, 'edit'])->name('pemakaian.edit');
+    Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.update');
+    Route::delete('/pemakaian/{id}', [PemakaianController::class, 'destroy'])->name('pemakaian.destroy');
+    Route::post('/pemakaian/{pemakaian}/update-status', [PemakaianController::class, 'updateStatus'])->name('pemakaian.update-status');
+
+});
+Route::get('/pemakaian/cari', [FrontendController::class, 'cari'])->name('pemakaian.cari');
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.list');
 
 require __DIR__.'/auth.php';
