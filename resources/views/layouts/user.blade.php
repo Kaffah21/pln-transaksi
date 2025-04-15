@@ -78,7 +78,7 @@
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-6 mt-8">
             <div class="container mx-auto text-center text-sm">
-                &copy; <script>document.write(new Date().getFullYear())</script> Data Pemakaian. All rights reserved.
+                &copy; {{ date('Y') }} by Kaffahsilmi.
             </div>
         </footer>
     </div>
