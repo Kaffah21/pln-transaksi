@@ -37,5 +37,9 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <footer class="bg-gray-200 text-center py-4">
+            <p class="text-sm text-gray-600">&copy; {{ date('Y') }} by Kaffahsilmi.</p>
+        </footer>
     </body>
 </html>
