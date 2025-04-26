@@ -31,6 +31,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::put('/petugas/{user}', [AdminController::class, 'update'])->name('petugas.update');
     Route::delete('/petugas/{user}', [AdminController::class, 'destroy'])->name('petugas.destroy');
 });
+Route::get('/get-tarif/{noKontrol}', [PemakaianController::class, 'getTarif']);
+
 Route::resource('tarif', TarifController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -43,7 +45,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/pemakaian/{pemakaian}/update-status', [PemakaianController::class, 'updateStatus'])->name('pemakaian.update-status');
 
 });
+Route::get('/pemakaian/pembayaran', [PemakaianController::class, 'pembayaran'])->name('pembayaran');
+Route::post('/pemakaian/bayar', [PemakaianController::class, 'prosesPembayaran'])->name('pembayaran.bayar');
+Route::post('/pembayaran/struk', [PembayaranController::class, 'cetakStruk'])->name('pembayaran.struk');
+
+
+Route::get('/get-meter-awal', [PemakaianController::class, 'getMeterAwal']);
+
 Route::get('/pemakaian/cari', [FrontendController::class, 'cari'])->name('pemakaian.cari');
 Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.list');
+Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPdf'])->name('laporan.eksport-pdf');
+Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPdf'])->name('laporan.exportpdf');
 
 require __DIR__.'/auth.php';

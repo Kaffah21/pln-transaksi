@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="icon" type="image/png" href="{{asset('asset/pln.png')}}">
+        <link rel="icon" type="image/png" href="{{asset('asset/logo.jpg')}}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -19,9 +19,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-                <!-- Sidebar -->
-
-
+            <!-- Sidebar -->
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -32,9 +30,12 @@
                     </div>
                 </header>
             @endisset
+
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-md rounded-lg">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
 

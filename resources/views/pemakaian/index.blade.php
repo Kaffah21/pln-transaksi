@@ -36,6 +36,17 @@
 
                     <div class="p-6">
 
+                    @if (session('status'))
+                 <div class="bg-green-100 text-green-800 px-4 py-2 rounded-md mb-4">
+                    {{ session('status') }}
+                </div>
+                    @endif
+
+                  @if (session('error'))
+                      <div class="bg-red-100 text-red-800 px-4 py-2 rounded-md mb-4">
+                         {{ session('error') }}
+                     </div>
+                  @endif
 
                         @if ($pemakaians->isEmpty())
                             <div class="text-center text-gray-500 mt-4">
@@ -60,7 +71,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($pemakaians as $index => $pemakaian)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $index + 1 }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $loop -> iteration }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ $pemakaian->Tahun }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">
                                             {{ \Carbon\Carbon::createFromFormat('m', $pemakaian->Bulan)->translatedFormat('F') }}
@@ -79,29 +90,38 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                                            <div class="relative inline-block text-left">
-                                                <button type="button" class="p-2 bg-white border-none rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none" data-dropdown-id="dropdown-{{ $pemakaian->id }}">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </button>
+    <div class="relative inline-block text-left">
+        <button type="button" class="p-2 bg-white border-none rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none" data-dropdown-id="dropdown-{{ $pemakaian->id }}">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
 
-                                                <div id="dropdown-{{ $pemakaian->id }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                                                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                                        <a href="{{ route('pemakaian.edit', $pemakaian) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">Edit</a>
-                                                        <form action="{{ route('pemakaian.destroy', $pemakaian) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="text-red-500 block px-4 py-2 text-sm" role="menuitem">Hapus</button>
-                                                        </form>
-                                                        <form action="{{ route('pemakaian.update-status', $pemakaian) }}" method="POST" class="inline">
-                                                            @csrf
-                                                            <button type="submit" class="px-4 py-2 text-xs font-semibold text-green-500 " role="menuitem">
-                                                                {{ $pemakaian->status == 'Lunas' ? ' Belum Bayar' : ' Lunas' }}
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+        <div id="dropdown-{{ $pemakaian->id }}" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                @if ($pemakaian->Status != 'Lunas')
+                    <a href="{{ route('pemakaian.edit', $pemakaian) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
+                        Edit
+                    </a>
+                @endif
+
+                <form action="{{ route('pemakaian.destroy', $pemakaian) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500 block px-4 py-2 text-sm" role="menuitem">
+                        Hapus
+                    </button>
+                </form>
+
+                @if ($pemakaian->Status != 'Lunas')
+                    <a href="{{ route('pembayaran', ['no_kontrol' => $pemakaian->NoKontrol]) }}"
+                       class="px-4 py-2 text-xs font-semibold text-green-500 block" role="menuitem">
+                        Bayar
+                    </a>
+                @endif
+            </div>
+        </div>
+    </div>
+</td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

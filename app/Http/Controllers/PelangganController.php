@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use App\Models\Tarif;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PelangganController extends Controller
@@ -13,7 +14,7 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggans = Pelanggan::with('tarif')->paginate(5);
+        $pelanggans = Pelanggan::with('tarif')->orderBy('created_at','desc')->paginate(5);
         return view('pelanggan.index', compact('pelanggans'));
     }
 
@@ -26,18 +27,25 @@ class PelangganController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NoKontrol' => 'required|string|unique:pelanggans',
+            // 'NoKontrol' => 'required|string|unique:pelanggans',
             'Nama' => 'required|string',
             'Alamat' => 'required|string',
             'Telepon' => 'required|string',
             'Jenis_Plg' => 'required|exists:tarifs,Jenis_Plg',
         ]);
 
-        Pelanggan::create($request->all());
+        $data = $request->all();
+        $data['NoKontrol'] = $this->generateNoKontrol();
+
+        Pelanggan::create($data);
 
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');;
     }
 
+    public function generateNoKontrol()
+{
+    return str_pad(mt_rand(1,9999999999999),13,'0',STR_PAD_LEFT);
+}
     public function edit($NoKontrol)
     {
         $pelanggan = Pelanggan::findOrFail($NoKontrol);
@@ -48,7 +56,7 @@ class PelangganController extends Controller
     public function update(Request $request, $NoKontrol)
     {
         $request->validate([
-            'NoKontrol' => 'required|string',
+            // 'NoKontrol' => 'required|string',
             'Nama' => 'required|string|max:255',
             'Alamat' => 'required|string',
             'Telepon' => 'required|string|max:15',

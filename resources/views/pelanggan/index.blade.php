@@ -64,9 +64,7 @@
                         </table>
 
                         {{-- Pagination --}}
-                        <div class="mt-4">
-                            {{ $pelanggans->links() }}
-                        </div>
+                        
                     @endif
                 </div>
             </div>

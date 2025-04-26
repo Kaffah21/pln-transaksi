@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::where('role','petugas')->get();
+        $users = User::where('role','petugas')->orderBy('created_at','desc')->paginate(5);
         return view('admin.index', compact('users'));
     }
 

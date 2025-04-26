@@ -12,7 +12,7 @@
                         class="px-4 py-3 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-teal-400 transition duration-300" value="{{ request('nokontrol') }}">
 
                     <!-- Dropdown Bulan -->
-                    <select name="bulan" id="bulan" class="px-4 py-3 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-teal-400 transition duration-300">
+                    {{-- <select name="bulan" id="bulan" class="px-4 py-3 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-teal-400 transition duration-300">
                         <option value="">Pilih Bulan</option>
                         @foreach(range(1, 12) as $month)
                             <option value="{{ $month }}" {{ request('bulan') == $month ? 'selected' : '' }}>
@@ -27,7 +27,7 @@
                         @foreach(range(2020, date('Y')) as $year)
                             <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
 
                     <!-- Tombol Cari -->
                     <button type="submit" class="px-6 py-2  text-white rounded-md" style="background: #07acea">Cari</button>
@@ -47,7 +47,9 @@
                         <h4 class="font-semibold text-lg text-gray-800">{{ $pemakaian->NoKontrol }}</h4>
                         <p class="text-gray-600 mt-2">Tahun: {{ $pemakaian->Tahun }}</p>
                         <p class="text-gray-600 mt-2">Bulan: {{ \Carbon\Carbon::createFromFormat('m', $pemakaian->Bulan)->translatedFormat('F') }}</p>
-                        <p class="text-gray-600 mt-2">Jumlah Pakai: {{ $pemakaian->JumlahPakai }}</p>
+                        <p class="text-gray-600 mt-2">Meter Akhir: {{ $pemakaian->MeterAwal }} VA</p>
+                        <p class="text-gray-600 mt-2">Meter Akhir: {{ $pemakaian->MeterAkhir }} VA</p>
+                        <p class="text-gray-600 mt-2">Jumlah Pakai: {{ $pemakaian->JumlahPakai }} VA</p>
                         <p class="text-gray-600 mt-2">Biaya Beban Pemakai: Rp {{ number_format($pemakaian->BiayaBebanPemakai, 2, ',', '.') }}</p>
                         <p class="text-gray-600 mt-2">Biaya Pemakaian: Rp {{ number_format($pemakaian->BiayaPemakaian, 2, ',', '.') }}</p>
                         <p class="text-gray-600 mt-2">

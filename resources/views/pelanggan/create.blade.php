@@ -10,7 +10,8 @@
                     <form method="POST" action="{{ route('pelanggan.store') }}">
                         @csrf
 
-                        <div class="mb-5">
+                        <!-- Hapus bagian NoKontrol -->
+                        <!-- <div class="mb-5">
                             <label for="NoKontrol" class="block text-gray-700 font-semibold mb-2">No Kontrol</label>
                             <input type="number" id="NoKontrol" name="NoKontrol"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('NoKontrol') border-red-500 @enderror"
@@ -18,7 +19,8 @@
                             @error('NoKontrol')
                                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
+
                         <div class="mb-5">
                             <label for="Nama" class="block text-gray-700 font-semibold mb-2">Nama</label>
                             <input type="text" id="Nama" name="Nama"
@@ -39,12 +41,14 @@
                         </div>
                         <div class="mb-5">
                             <label for="Telepon" class="block text-gray-700 font-semibold mb-2">Telepon</label>
-                            <input type="number" id="Telepon" name="Telepon"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md @error('Telepon') border-red-500 @enderror"
-                                   pattern="[0-9]+" title="Hanya angka yang diperbolehkan" required>
-                            @error('Telepon')
-                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                            @enderror
+                            <input type="text" id="Telepon" name="Telepon" maxlength="13"
+    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('Telepon') border-red-500 @enderror"
+    pattern="\d{1,13}" title="Maksimal 13 digit angka" required
+    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,13);">
+@error('Telepon')
+    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+@enderror
+
                         </div>
 
                         <div class="mb-5">

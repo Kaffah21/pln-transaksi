@@ -32,7 +32,7 @@
                         </div>
 
                         <!-- Role -->
-                        <div class="mb-5">
+                        <!-- <div class="mb-5">
                             <label for="role" class="block text-gray-700 font-semibold mb-2">Role</label>
                             <select id="role" name="role"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-md @error('role') border-red-500 @enderror" required>
@@ -42,12 +42,12 @@
                             @error('role')
                                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <!-- Submit Button -->
                         <div class="flex justify-between mt-5">
                             <a href="{{ route('admin.petugas.index') }}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">Kembali</a>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none">Update Petugas</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none">Simpan</button>
                         </div>
                     </form>
                 </div>

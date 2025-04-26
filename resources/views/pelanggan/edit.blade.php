@@ -11,14 +11,14 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-5">
+                        {{-- <div class="mb-5">
                             <label for="NoKontrol" class="block text-gray-700 font-semibold mb-2">No Kontrol</label>
                             <input type="number" name="NoKontrol" id="NoKontrol" value="{{ old('NoKontrol', $pelanggan->NoKontrol) }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-md @error('NoKontrol') border-red-500 @enderror" required>
                             @error('NoKontrol')
                                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="mb-5">
                             <label for="Nama" class="block text-gray-700 font-semibold mb-2">Nama</label>
@@ -40,11 +40,15 @@
 
                         <div class="mb-5">
                             <label for="Telepon" class="block text-gray-700 font-semibold mb-2">Telepon</label>
-                            <input type="number" name="Telepon" id="Telepon" value="{{ old('Telepon', $pelanggan->Telepon) }}"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md @error('Telepon') border-red-500 @enderror" required>
-                            @error('Telepon')
-                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                            @enderror
+                            <input type="number" name="Telepon" id="Telepon" 
+    value="{{ old('Telepon', $pelanggan->Telepon) }}"
+    class="w-full px-4 py-2 border border-gray-300 rounded-md @error('Telepon') border-red-500 @enderror"
+    max="9999999999999" required
+    oninput="if(this.value.length > 13) this.value = this.value.slice(0,13);">
+@error('Telepon')
+    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+@enderror
+
                         </div>
 
                         <div class="mb-5">
@@ -65,7 +69,7 @@
 
                         <div class="flex justify-between mt-5">
                             <a href="{{ route('pelanggan.index') }}" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">Batal</a>
-                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-none">Update</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 focus:outline-none">Simpan</button>
                         </div>
                     </form>
                 </div>

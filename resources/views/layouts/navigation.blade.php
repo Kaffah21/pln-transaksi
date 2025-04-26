@@ -1,11 +1,10 @@
-<div x-data="{ open: false }" class="flex h-screen bg-gray-100">
+<div x-data="{ open: false }" class="flex min-h-screen bg-gray-100">
     <!-- Sidebar -->
     <div :class="{'block': open, 'hidden': !open}" class="fixed inset-0 z-10 bg-gray-800 bg-opacity-50 sm:hidden" @click="open = false"></div>
       <div :class="{'translate-x-0': open, '-translate-x-full': !open}" class="transition-transform transform fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 z-20 sm:relative sm:translate-x-0">
         <div class="flex items-center justify-between p-4 border-b border-gray-200">
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
-                <img src="{{ asset('asset/pln.png') }}" alt="PLN Logo" class="h-16">
-                {{-- <span class="text-xl font-bold " style="color: #07acea">PLN Admin</span> --}}
+                <img src="{{ asset('asset/logo.jpg') }}" alt="PLN Logo" class="h-16">
             </a>
             <button @click="open = false" class="text-gray-600 hover:text-red-500 transition duration-300 sm:hidden">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +33,7 @@
                     <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
-                    <span>Jenis Pelanggan</span>
+                    <span>Jenis tarif</span>
                 </a>
             @endif
 
@@ -113,7 +112,7 @@
         </nav>
 
         <!-- Content goes here -->
-        <div class="flex-1 p-6 ml-0 md:ml-64 transition-all duration-300 overflow-y-auto" id="main-content">
+        <div class="flex-1 p-6 ml-0 md:ml-24 transition-all duration-300 overflow-y-auto" id="main-content">
             @yield('content')
         </div>
     </div>

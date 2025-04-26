@@ -4,7 +4,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
                     <div class="bg-gray-100 p-4">
-                        <h3 class="text-xl font-semibold">Tambah Tarif Pelanggan</h3>
+                        <h3 class="text-xl font-semibold">Tambah Jenis Tarif Pelanggan</h3>
                     </div>
                     <div class="p-6">
                         <form method="POST" action="{{ route('tarif.store') }}">
