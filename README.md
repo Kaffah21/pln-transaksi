@@ -29,6 +29,41 @@ Salin file `.env.example` dan ubah namanya menjadi `.env`.
 
 ```bash
 cp .env.example .env
-### 3.  Install PHP Dependencies
-cp composer install
+```
+### 3. Install PHP Dependencies
+
+```bash
+composer install
+```
+
+### 4.Install JavaScript Dependencies
+
+```bash
+npm install
+npm run build
+```
+### 5. Generate key
+
+```bash
+php artisan key:generate
+```
+### 6. Run Migration
+
+```bash
+php artisan migrate
+```
+### 7. Seeding database
+
+```bash
+php artisan db:seed
+```
+### 8. Start Server
+
+```bash
+php artisan serve
+```
+
+### Acount 
+username = admin@gmail.com
+🔐 password = admin123
 
