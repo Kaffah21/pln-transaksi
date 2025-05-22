@@ -4,6 +4,9 @@ Selamat datang di **Sistem Pembayaran PLN**!
 Aplikasi ini dirancang untuk memudahkan pengelolaan pembayaran listrik, mulai dari pencatatan pelanggan, pemakaian listrik, hingga proses pembayaran.  
 Tersedia fitur lengkap dengan dua role utama: **Admin** dan **Petugas Loket**, sehingga pengelolaan data menjadi lebih terstruktur dan efisien.
 
+![Dashboard](asset/dashboard.png)
+
+
 ## ✨ Fitur Utama
 
 - **Manajemen Pelanggan**: Tambah, edit, dan lihat data pelanggan.
